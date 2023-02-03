@@ -13,6 +13,7 @@
 		702EDAF1298CF2AA002C8B98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 702EDAF0298CF2AA002C8B98 /* Assets.xcassets */; };
 		702EDAF4298CF2AA002C8B98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 702EDAF2298CF2AA002C8B98 /* LaunchScreen.storyboard */; };
 		702EDB06298CF8F3002C8B98 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 702EDB05298CF8F3002C8B98 /* .gitignore */; };
+		707796C1298D053E00B2E384 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707796C0298D053E00B2E384 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		702EDAF3298CF2AA002C8B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		702EDAF5298CF2AA002C8B98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		702EDB05298CF8F3002C8B98 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		707796C0298D053E00B2E384 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +63,6 @@
 				702EDB03298CF7EC002C8B98 /* Protocols */,
 				702EDB02298CF7E5002C8B98 /* Utils */,
 				702EDB01298CF7D1002C8B98 /* Coordinators */,
-				702EDB00298CF7CA002C8B98 /* Controllers */,
 				702EDAFF298CF7C1002C8B98 /* Models */,
 				702EDAFE298CF7B9002C8B98 /* CustomViews */,
 				702EDAFD298CF7AF002C8B98 /* Scenes */,
@@ -93,6 +94,7 @@
 		702EDAFD298CF7AF002C8B98 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				702EDAEB298CF2A8002C8B98 /* MainViewController.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -109,14 +111,6 @@
 			children = (
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		702EDB00298CF7CA002C8B98 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				702EDAEB298CF2A8002C8B98 /* MainViewController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		702EDB01298CF7D1002C8B98 /* Coordinators */ = {
@@ -143,6 +137,7 @@
 		702EDB04298CF7F3002C8B98 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				707796C0298D053E00B2E384 /* UIColor+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -221,6 +216,7 @@
 				702EDAEC298CF2A8002C8B98 /* MainViewController.swift in Sources */,
 				702EDAE8298CF2A8002C8B98 /* AppDelegate.swift in Sources */,
 				702EDAEA298CF2A8002C8B98 /* SceneDelegate.swift in Sources */,
+				707796C1298D053E00B2E384 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
