@@ -8,17 +8,17 @@
 import UIKit
 
 class MainView: UIView {
-
+    
     // MARK: - Properties
     
     var didPressedButtonRequest: (() -> Void)?
     
-    private let linePadding: CGFloat = 12
-    private let sidePadding: CGFloat = 20
+    private let lineSpacing: CGFloat = 12
+    private let horizontaPadding: CGFloat = 20
     private let topPadding: CGFloat = 24
     private let bottomPadding: CGFloat = 78
     private let heightButton: CGFloat = 60
-    private let heightFieldsCollection: CGFloat = 44
+    private let heightDirectionsCollection: CGFloat = 44
     private let widhtButton: CGFloat = 219
     
     private var flowLayout: UICollectionViewFlowLayout = {
@@ -28,7 +28,7 @@ class MainView: UIView {
         return layout
     }()
     
-    lazy var  fieldsCollectionView: UICollectionView = {
+    lazy var  directionsCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(CustomCollectionViewCell.self,
                                 forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
@@ -54,6 +54,16 @@ class MainView: UIView {
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.textColor = UIColor.AppColors.darkGrey
         label.text = C.Labels.firstDescriptionLabel
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var secondDescriptionLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.textColor = UIColor.AppColors.darkGrey
+        label.text = C.Labels.secondDescriptionLabel
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -101,29 +111,34 @@ class MainView: UIView {
     private func addSubview() {
         addSubview(titelLabel)
         addSubview(firstDescriptionLabel)
-        addSubview(fieldsCollectionView)
+        addSubview(directionsCollectionView)
+        addSubview(secondDescriptionLabel)
         addSubview(questionLabel)
         addSubview(buttonRequest)
     }
     
     func makeConstraints() {
         titelLabel.topAnchor.constraint(equalTo: topAnchor, constant: topPadding).isActive = true
-        titelLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sidePadding).isActive = true
+        titelLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
         
-        firstDescriptionLabel.topAnchor.constraint(equalTo: titelLabel.bottomAnchor, constant: linePadding).isActive = true
-        firstDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sidePadding).isActive = true
-        firstDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sidePadding).isActive = true
+        firstDescriptionLabel.topAnchor.constraint(equalTo: titelLabel.bottomAnchor, constant: lineSpacing).isActive = true
+        firstDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
+        firstDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
         
-        fieldsCollectionView.topAnchor.constraint(equalTo: firstDescriptionLabel.bottomAnchor, constant: linePadding).isActive = true
-        fieldsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sidePadding).isActive = true
-        fieldsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sidePadding).isActive = true
-        fieldsCollectionView.heightAnchor.constraint(equalToConstant: heightFieldsCollection).isActive = true
+        directionsCollectionView.topAnchor.constraint(equalTo: firstDescriptionLabel.bottomAnchor, constant: lineSpacing).isActive = true
+        directionsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
+        directionsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        directionsCollectionView.heightAnchor.constraint(equalToConstant: heightDirectionsCollection).isActive = true
+        
+        secondDescriptionLabel.topAnchor.constraint(equalTo: directionsCollectionView.bottomAnchor, constant: lineSpacing).isActive = true
+        secondDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
+        secondDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
         
         questionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding).isActive = true
-        questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sidePadding).isActive = true
+        questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
         
         buttonRequest.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding + 20).isActive = true
-        buttonRequest.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sidePadding).isActive = true
+        buttonRequest.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
         buttonRequest.heightAnchor.constraint(equalToConstant: heightButton).isActive = true
         buttonRequest.widthAnchor.constraint(equalToConstant: widhtButton).isActive = true
     }
@@ -133,5 +148,4 @@ class MainView: UIView {
     @objc private func sendButtonTapped(_ sender: UIButton) {
         didPressedButtonRequest?()
     }
-    
 }

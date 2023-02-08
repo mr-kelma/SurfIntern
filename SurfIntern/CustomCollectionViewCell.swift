@@ -17,9 +17,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     static let identifier: String = C.identifier
     
-    weak var delegate: CustomCollectionViewCelllDelegate?
-    
-    private lazy var fieldLabel: UILabel = {
+    private lazy var directionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = UIColor.AppColors.dark
@@ -38,6 +36,11 @@ class CustomCollectionViewCell: UICollectionViewCell {
         makeConstraints()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.directionLabel.text = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -46,25 +49,29 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     func configureCellWith(index: Int) {
         cellIndex = index
-        fieldLabel.text = C.fieldsOfStudy[cellIndex ?? 0]
+        directionLabel.text = directions[cellIndex ?? 0].direction
+    }
+    
+    //This method will not work correctly with infinite scrolling (shifts the condition)
+    func changeCellCondition(directionCondition: Condition) {
+        if directionCondition == Condition.notSelected {
+            directionLabel.textColor = .white
+            contentView.backgroundColor = UIColor.AppColors.dark
+        } else {
+            directionLabel.textColor = UIColor.AppColors.dark
+            contentView.backgroundColor = UIColor.AppColors.lightGrey
+        }
     }
     
     private func setupSubviews() {
-        contentView.addSubview(fieldLabel)
+        contentView.addSubview(directionLabel)
         contentView.layer.cornerRadius = cornerRadiusCell
     }
     
     private func makeConstraints() {
-        fieldLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        fieldLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        fieldLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        fieldLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        directionLabel.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        directionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        directionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        directionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
-    
-    //MARK: - Action
-    
 }
-
-
-
-

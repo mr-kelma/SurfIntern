@@ -9,18 +9,6 @@ struct C {
     static let identifier: String = "CustomCollectionViewCell"
     static let background: String = "background"
     
-    static let fieldsOfStudy: [String] = ["IOS",
-                                          "Android",
-                                          "Design",
-                                          "QA",
-                                          "Flutter",
-                                          "PM",
-                                          "Я",
-                                          "хочу",
-                                          "у вас",
-                                          "стажироваться"
-    ]
-    
     struct Labels {
         static let buttonRequestLabel: String = "Отправить заявку"
         static let firstDescriptionLabel: String = "Работай над реальными задачами под рукодством опытного наставника и получи возможность стать частью команды мечты."

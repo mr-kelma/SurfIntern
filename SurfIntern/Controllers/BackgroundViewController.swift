@@ -25,10 +25,6 @@ class BackgroundViewController: UIViewController {
         configureSheet()
     }
     
-    // MARK: - Public methods
-    
-    //
-    
     // MARK: - Private methods
     
     private func configureSheet() {
@@ -42,14 +38,13 @@ class BackgroundViewController: UIViewController {
             sheet.preferredCornerRadius = cornerRadiusSheet
             sheet.detents = [
                 .custom(resolver: { context in
-                0.4 * context.maximumDetentValue
-            }),
+                    0.4 * context.maximumDetentValue
+                }),
                 .custom(resolver: { context in
-                0.6 * context.maximumDetentValue
-            }),
+                    0.6 * context.maximumDetentValue
+                }),
                 .large()
             ]
-            
         }
     }
 }

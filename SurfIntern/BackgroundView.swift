@@ -13,7 +13,7 @@ class BackgroundView: UIView {
     
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: C.background))
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -25,6 +25,7 @@ class BackgroundView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         addSubview()
+        makeConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,5 +36,11 @@ class BackgroundView: UIView {
     
     private func addSubview() {
         addSubview(backgroundImageView)
+    }
+    
+    func makeConstraints() {
+        backgroundImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 }
