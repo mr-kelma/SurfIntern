@@ -12,8 +12,8 @@ class BackgroundView: UIView {
     // MARK: - Properties
     
     private let backgroundImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "background"))
-        imageView.contentMode = .scaleAspectFill
+        let imageView = UIImageView(image: UIImage(named: C.background))
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

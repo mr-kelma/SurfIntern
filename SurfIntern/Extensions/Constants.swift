@@ -6,31 +6,32 @@
 //
 
 struct C {
-    static let identifier = "CustomTableViewCell"
+    static let identifier: String = "CustomCollectionViewCell"
+    static let background: String = "background"
     
     static let fieldsOfStudy: [String] = ["IOS",
                                           "Android",
                                           "Design",
                                           "QA",
                                           "Flutter",
-                                          "PL",
+                                          "PM",
                                           "Я",
                                           "хочу",
-                                          "здесь",
+                                          "у вас",
                                           "стажироваться"
     ]
     
     struct Labels {
-        static let buttonRequestLabel = "Отправить заявку"
-        static let firstDescriptionLabel = "Работай над реальными задачами под рукодством опытного наставника и получи возможность стать частью команды мечты."
-        static let secondDescriptionLabel = "Получай стипендию, выстраивай удобный график, работай на современном железе."
-        static let titelLabel = "Стажировка в Surf"
-        static let questionLabel = "Хочешь к нам?"
+        static let buttonRequestLabel: String = "Отправить заявку"
+        static let firstDescriptionLabel: String = "Работай над реальными задачами под рукодством опытного наставника и получи возможность стать частью команды мечты."
+        static let secondDescriptionLabel: String = "Получай стипендию, выстраивай удобный график, работай на современном железе."
+        static let titelLabel: String = "Стажировка в Surf"
+        static let questionLabel: String = "Хочешь к нам?"
     }
     
     struct Alert {
-        static let title = "Поздравляем!"
-        static let message = "Ваша заявка успешно отправлена!"
-        static let addActionTitle = "Закрыть"
+        static let title: String = "Поздравляем!"
+        static let message: String = "Ваша заявка успешно отправлена!"
+        static let addActionTitle: String = "Закрыть"
     }
 }

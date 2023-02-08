@@ -13,12 +13,30 @@ class MainView: UIView {
     
     var didPressedButtonRequest: (() -> Void)?
     
-    private lazy var linePadding: CGFloat = 12
-    private lazy var sidePadding: CGFloat = 20
-    private lazy var topPadding: CGFloat = 24
-    private lazy var bottomPadding: CGFloat = 78
-    private lazy var heightButton: CGFloat = 60
-    private lazy var widhtButton: CGFloat = 219
+    private let linePadding: CGFloat = 12
+    private let sidePadding: CGFloat = 20
+    private let topPadding: CGFloat = 24
+    private let bottomPadding: CGFloat = 78
+    private let heightButton: CGFloat = 60
+    private let heightFieldsCollection: CGFloat = 44
+    private let widhtButton: CGFloat = 219
+    
+    private var flowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.scrollDirection = .horizontal
+        return layout
+    }()
+    
+    lazy var  fieldsCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(CustomCollectionViewCell.self,
+                                forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     private lazy var titelLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -40,7 +58,6 @@ class MainView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     
     private lazy var questionLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -70,6 +87,7 @@ class MainView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.AppColors.dark
         addSubview()
         makeConstraints()
     }
@@ -83,6 +101,7 @@ class MainView: UIView {
     private func addSubview() {
         addSubview(titelLabel)
         addSubview(firstDescriptionLabel)
+        addSubview(fieldsCollectionView)
         addSubview(questionLabel)
         addSubview(buttonRequest)
     }
@@ -94,6 +113,11 @@ class MainView: UIView {
         firstDescriptionLabel.topAnchor.constraint(equalTo: titelLabel.bottomAnchor, constant: linePadding).isActive = true
         firstDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sidePadding).isActive = true
         firstDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sidePadding).isActive = true
+        
+        fieldsCollectionView.topAnchor.constraint(equalTo: firstDescriptionLabel.bottomAnchor, constant: linePadding).isActive = true
+        fieldsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sidePadding).isActive = true
+        fieldsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -sidePadding).isActive = true
+        fieldsCollectionView.heightAnchor.constraint(equalToConstant: heightFieldsCollection).isActive = true
         
         questionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding).isActive = true
         questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: sidePadding).isActive = true
