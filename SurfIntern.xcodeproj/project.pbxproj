@@ -20,6 +20,7 @@
 		702EDAF4298CF2AA002C8B98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 702EDAF2298CF2AA002C8B98 /* LaunchScreen.storyboard */; };
 		702EDB06298CF8F3002C8B98 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 702EDB05298CF8F3002C8B98 /* .gitignore */; };
 		707796C1298D053E00B2E384 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707796C0298D053E00B2E384 /* UIColor+Extension.swift */; };
+		70E17BFA29954D5B006F5D72 /* CustomFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E17BF929954D5B006F5D72 /* CustomFlowLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		702EDAF5298CF2AA002C8B98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		702EDB05298CF8F3002C8B98 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		707796C0298D053E00B2E384 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		70E17BF929954D5B006F5D72 /* CustomFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFlowLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,8 +132,9 @@
 		702EDB04298CF7F3002C8B98 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				707796C0298D053E00B2E384 /* UIColor+Extension.swift */,
 				700CC58D2992C8EA00343A9B /* Constants.swift */,
+				70E17BF929954D5B006F5D72 /* CustomFlowLayout.swift */,
+				707796C0298D053E00B2E384 /* UIColor+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				700CC590299398F000343A9B /* CustomCollectionViewCell.swift in Sources */,
 				700CC58C2992C83400343A9B /* MainView.swift in Sources */,
 				702EDAEC298CF2A8002C8B98 /* BackgroundViewController.swift in Sources */,
+				70E17BFA29954D5B006F5D72 /* CustomFlowLayout.swift in Sources */,
 				702EDAE8298CF2A8002C8B98 /* AppDelegate.swift in Sources */,
 				702EDAEA298CF2A8002C8B98 /* SceneDelegate.swift in Sources */,
 				700CC5812992AC3C00343A9B /* MainViewController.swift in Sources */,

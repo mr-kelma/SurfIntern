@@ -17,26 +17,12 @@ class MainView: UIView {
     private let horizontaPadding: CGFloat = 20
     private let topPadding: CGFloat = 24
     private let bottomPadding: CGFloat = 78
+    private let heightFirstDirectionsCollection: CGFloat = 44
+    private let heightSecondDirectionsCollection: CGFloat = 100
     private let heightButton: CGFloat = 60
-    private let heightDirectionsCollection: CGFloat = 44
     private let widhtButton: CGFloat = 219
     
-    private var flowLayout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 12
-        layout.scrollDirection = .horizontal
-        return layout
-    }()
-    
-    lazy var  directionsCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.register(CustomCollectionViewCell.self,
-                                forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
-        collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView
-    }()
+    //UI elements are arranged from top to bottom display on the screen
     
     private lazy var titelLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -59,6 +45,23 @@ class MainView: UIView {
         return label
     }()
     
+    private var firstFlowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 12
+        layout.scrollDirection = .horizontal
+        return layout
+    }()
+    
+    lazy var firstDirectionsCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: firstFlowLayout)
+        collectionView.register(CustomCollectionViewCell.self,
+                                forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
     private lazy var secondDescriptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -67,6 +70,24 @@ class MainView: UIView {
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    
+    
+    private var secondFlowLayout: LeftAlignedCollectionViewFlowLayout = {
+        let layout = LeftAlignedCollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+        return layout
+    }()
+    
+    lazy var secondDirectionsCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: secondFlowLayout)
+        collectionView.register(CustomCollectionViewCell.self,
+                                forCellWithReuseIdentifier: CustomCollectionViewCell.identifier)
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
     private lazy var questionLabel: UILabel = {
@@ -111,8 +132,9 @@ class MainView: UIView {
     private func addSubview() {
         addSubview(titelLabel)
         addSubview(firstDescriptionLabel)
-        addSubview(directionsCollectionView)
+        addSubview(firstDirectionsCollectionView)
         addSubview(secondDescriptionLabel)
+        addSubview(secondDirectionsCollectionView)
         addSubview(questionLabel)
         addSubview(buttonRequest)
     }
@@ -125,14 +147,19 @@ class MainView: UIView {
         firstDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
         firstDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
         
-        directionsCollectionView.topAnchor.constraint(equalTo: firstDescriptionLabel.bottomAnchor, constant: lineSpacing).isActive = true
-        directionsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
-        directionsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        directionsCollectionView.heightAnchor.constraint(equalToConstant: heightDirectionsCollection).isActive = true
+        firstDirectionsCollectionView.topAnchor.constraint(equalTo: firstDescriptionLabel.bottomAnchor, constant: lineSpacing).isActive = true
+        firstDirectionsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
+        firstDirectionsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        firstDirectionsCollectionView.heightAnchor.constraint(equalToConstant: heightFirstDirectionsCollection).isActive = true
         
-        secondDescriptionLabel.topAnchor.constraint(equalTo: directionsCollectionView.bottomAnchor, constant: lineSpacing).isActive = true
+        secondDescriptionLabel.topAnchor.constraint(equalTo: firstDirectionsCollectionView.bottomAnchor, constant: lineSpacing).isActive = true
         secondDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
         secondDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
+        
+        secondDirectionsCollectionView.topAnchor.constraint(equalTo: secondDescriptionLabel.bottomAnchor, constant: lineSpacing).isActive = true
+        secondDirectionsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
+        secondDirectionsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        secondDirectionsCollectionView.heightAnchor.constraint(equalToConstant: heightSecondDirectionsCollection).isActive = true
         
         questionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding).isActive = true
         questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true

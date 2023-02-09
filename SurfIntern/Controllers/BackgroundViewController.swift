@@ -45,6 +45,14 @@ class BackgroundViewController: UIViewController {
                 }),
                 .large()
             ]
+            sheet.delegate = self
         }
+    }
+}
+
+extension BackgroundViewController: UISheetPresentationControllerDelegate {
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        let position = sheetPresentationController.selectedDetentIdentifier!
+        print(position)
     }
 }

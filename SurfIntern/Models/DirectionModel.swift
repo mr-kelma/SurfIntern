@@ -12,20 +12,43 @@ enum Condition {
     case selected
 }
 
-struct DirectionModel {
+struct Direction {
     let direction: String
     var condition: Condition
 }
 
-var directions: [DirectionModel] = [
-    DirectionModel(direction: "IOS", condition: Condition.notSelected),
-    DirectionModel(direction: "Android", condition: Condition.notSelected),
-    DirectionModel(direction: "Design", condition: Condition.notSelected),
-    DirectionModel(direction: "Flutter", condition: Condition.notSelected),
-    DirectionModel(direction: "QA", condition: Condition.notSelected),
-    DirectionModel(direction: "PM", condition: Condition.notSelected),
-    DirectionModel(direction: "Хочу", condition: Condition.notSelected),
-    DirectionModel(direction: "стажироваться", condition: Condition.notSelected),
-    DirectionModel(direction: "у", condition: Condition.notSelected),
-    DirectionModel(direction: "вас", condition: Condition.notSelected),
-]
+final class DirectionModel {
+    
+    static let shared = DirectionModel()
+    
+    var directions: [Direction] = [
+        Direction(direction: "IOS", condition: Condition.notSelected),
+        Direction(direction: "Android", condition: Condition.notSelected),
+        Direction(direction: "Design", condition: Condition.notSelected),
+        Direction(direction: "Flutter", condition: Condition.notSelected),
+        Direction(direction: "QA", condition: Condition.notSelected),
+        Direction(direction: "PM", condition: Condition.notSelected),
+        Direction(direction: "Хочу", condition: Condition.notSelected),
+        Direction(direction: "стажироваться", condition: Condition.notSelected),
+        Direction(direction: "у", condition: Condition.notSelected),
+        Direction(direction: "вас", condition: Condition.notSelected),
+    ]
+    
+    func redefineDirections(index: Int) {
+        if index >= 0 {
+            directions[index].condition = .selected
+            let direction = directions.remove(at: index)
+            directions.insert(direction, at: 0)
+        }
+        
+        for i in 1..<directions.count {
+            self.directions[i].condition = Condition.notSelected
+        }
+    }
+}
+
+
+
+
+
+

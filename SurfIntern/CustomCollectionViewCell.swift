@@ -11,11 +11,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    var cellIndex: Int?
+    static let identifier: String = C.identifier
     
     private let cornerRadiusCell: CGFloat = 12
-    
-    static let identifier: String = C.identifier
     
     private lazy var directionLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -47,19 +45,15 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Methods
     
-    func configureCellWith(index: Int) {
-        cellIndex = index
-        directionLabel.text = directions[cellIndex ?? 0].direction
-    }
-    
-    //This method will not work correctly with infinite scrolling (shifts the condition)
-    func changeCellCondition(directionCondition: Condition) {
-        if directionCondition == Condition.notSelected {
-            directionLabel.textColor = .white
-            contentView.backgroundColor = UIColor.AppColors.dark
-        } else {
+    func configureCellWith(direction: Direction) {
+        directionLabel.text = direction.direction
+        
+        if direction.condition == Condition.notSelected {
             directionLabel.textColor = UIColor.AppColors.dark
             contentView.backgroundColor = UIColor.AppColors.lightGrey
+        } else {
+            directionLabel.textColor = .white
+            contentView.backgroundColor = UIColor.AppColors.dark
         }
     }
     
