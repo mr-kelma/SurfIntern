@@ -34,7 +34,7 @@ final class DirectionModel {
         Direction(direction: "вас", condition: Condition.notSelected),
     ]
     
-    // MARK: Init
+    // MARK: - Methods
     
     func checkDirections(index: Int) {
         let index = index

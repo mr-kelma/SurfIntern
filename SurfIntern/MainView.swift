@@ -74,7 +74,6 @@ class MainView: UIView {
     
     private var secondFlowLayout: LeftAlignedCollectionViewFlowLayout = {
         let layout = LeftAlignedCollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
         return layout
     }()
     
