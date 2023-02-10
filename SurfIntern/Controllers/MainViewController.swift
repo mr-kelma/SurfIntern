@@ -11,10 +11,11 @@ class MainViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let infiniteScrollingMultiplier: Int = 100
     private let horizontalPaddingInCell: CGFloat = 24
     private let verticalPaddingInCell: CGFloat = 12
     private let directionModel: DirectionModel = DirectionModel()
+    
+    private var sheetPositions: [String] = []
     
     private lazy var customView = view as? MainView
     
@@ -31,23 +32,13 @@ class MainViewController: UIViewController {
         customView?.firstDirectionsCollectionView.delegate = self
         customView?.secondDirectionsCollectionView.dataSource = self
         customView?.secondDirectionsCollectionView.delegate = self
-        prepareCustomLayout()
+        prepareCustomLayoutDelegate()
         subscribeCustomViewAction()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        prepareInfiniteScrolling()
     }
     
     // MARK: - Methods
     
-    private func prepareInfiniteScrolling() {
-        let indexPath = IndexPath(row: directionModel.directions.count * infiniteScrollingMultiplier / 2, section: 0)
-        customView?.firstDirectionsCollectionView.scrollToItem(at: indexPath, at: .left, animated: false)
-    }
-    
-    private func prepareCustomLayout() {
+    private func prepareCustomLayoutDelegate() {
         if let layout = customView?.secondDirectionsCollectionView.collectionViewLayout as? LeftAlignedCollectionViewFlowLayout {
             layout.delegate = self
         }
@@ -71,31 +62,17 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == customView?.firstDirectionsCollectionView {
-            return directionModel.directions.count * infiniteScrollingMultiplier
-        } else {
-            return directionModel.directions.count
-        }
+        return directionModel.directions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
-        if collectionView == customView?.firstDirectionsCollectionView {
-            cell.configureCellWith(direction: directionModel.directions[indexPath.row % directionModel.directions.count])
-        } else {
-            cell.configureCellWith(direction: directionModel.directions[indexPath.row])
-        }
+        cell.configureCellWith(direction: directionModel.directions[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if collectionView == customView?.firstDirectionsCollectionView {
-            directionModel.checkDirections(index: indexPath.row % directionModel.directions.count)
-        } else {
-            directionModel.checkDirections(index: indexPath.row)
-        }
-        
+        directionModel.checkDirections(index: indexPath.row)
         customView?.firstDirectionsCollectionView.reloadData()
         customView?.secondDirectionsCollectionView.reloadData()
         customView?.firstDirectionsCollectionView.moveItem(at: indexPath, to: IndexPath(row: 0, section: 0))
@@ -108,13 +85,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var text = ""
-        if collectionView == customView?.firstDirectionsCollectionView {
-            text = directionModel.directions[indexPath.row % directionModel.directions.count].direction
-        } else {
-            text = directionModel.directions[indexPath.row].direction
-        }
-        
+        let  text = directionModel.directions[indexPath.row].direction
         let font = UIFont.systemFont(ofSize: 14, weight: .regular)
         let width = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
         let labelSize = text.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin], attributes: [.font: font], context: nil)
@@ -126,7 +97,28 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 extension MainViewController: UISheetPresentationControllerDelegate {
     func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
-        customView?.addNewItems()
+        guard let position = sheetPresentationController.selectedDetentIdentifier?.rawValue else { return }
+        
+        if sheetPositions.contains(position) == false {
+            sheetPositions.append(position)
+            customView?.addNewItems()
+        }
+        
+        if sheetPresentationController.selectedDetentIdentifier == .large {
+            customView?.addNewItems()
+        }
+        
+        if sheetPositions.count == 2 && position == sheetPositions[1] && sheetPresentationController.selectedDetentIdentifier != .large {
+            customView?.removeSubviewNewItems()
+        }
+        
+        if sheetPositions.count == 3 && position == sheetPositions[0] {
+            customView?.addNewItems()
+        }
+        
+        if sheetPositions.count == 3 && position == sheetPositions[2] {
+            customView?.removeSubviewNewItems()
+        }
     }
 }
 

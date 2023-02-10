@@ -19,8 +19,6 @@ struct Direction {
 
 final class DirectionModel {
     
-    // MARK: - Properties
-    
     var directions: [Direction] = [
         Direction(direction: "IOS", condition: Condition.notSelected),
         Direction(direction: "Android", condition: Condition.notSelected),
@@ -28,13 +26,11 @@ final class DirectionModel {
         Direction(direction: "Flutter", condition: Condition.notSelected),
         Direction(direction: "QA", condition: Condition.notSelected),
         Direction(direction: "PM", condition: Condition.notSelected),
-        Direction(direction: "Хочу", condition: Condition.notSelected),
-        Direction(direction: "стажироваться", condition: Condition.notSelected),
-        Direction(direction: "у", condition: Condition.notSelected),
-        Direction(direction: "вас", condition: Condition.notSelected),
+        Direction(direction: "I would", condition: Condition.notSelected),
+        Direction(direction: "like", condition: Condition.notSelected),
+        Direction(direction: "to intern", condition: Condition.notSelected),
+        Direction(direction: "with you", condition: Condition.notSelected),
     ]
-    
-    // MARK: - Methods
     
     func checkDirections(index: Int) {
         let index = index

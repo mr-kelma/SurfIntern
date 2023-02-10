@@ -124,6 +124,12 @@ class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Action
+    
+    @objc private func sendButtonTapped(_ sender: UIButton) {
+        didPressedButtonRequest?()
+    }
+    
     // MARK: - Methods
     
     func addNewItems() {
@@ -180,11 +186,5 @@ class MainView: UIView {
         secondDirectionsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
         secondDirectionsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         secondDirectionsCollectionView.heightAnchor.constraint(equalToConstant: heightSecondDirectionsCollection).isActive = true
-    }
-    
-    //MARK: - Action
-    
-    @objc private func sendButtonTapped(_ sender: UIButton) {
-        didPressedButtonRequest?()
     }
 }
