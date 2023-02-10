@@ -19,7 +19,7 @@ struct Direction {
 
 final class DirectionModel {
     
-    static let shared = DirectionModel()
+    // MARK: - Properties
     
     var directions: [Direction] = [
         Direction(direction: "IOS", condition: Condition.notSelected),
@@ -34,7 +34,20 @@ final class DirectionModel {
         Direction(direction: "вас", condition: Condition.notSelected),
     ]
     
-    func redefineDirections(index: Int) {
+    // MARK: Init
+    
+    func checkDirections(index: Int) {
+        let index = index
+        
+        switch directions[index].condition {
+        case .selected:
+            directions[index].condition = .notSelected
+        default:
+            redefineDirections(index: index)
+        }
+    }
+    
+    private func redefineDirections(index: Int) {
         if index >= 0 {
             directions[index].condition = .selected
             let direction = directions.remove(at: index)
@@ -46,9 +59,3 @@ final class DirectionModel {
         }
     }
 }
-
-
-
-
-
-

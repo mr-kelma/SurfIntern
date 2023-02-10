@@ -72,8 +72,6 @@ class MainView: UIView {
         return label
     }()
     
-    
-    
     private var secondFlowLayout: LeftAlignedCollectionViewFlowLayout = {
         let layout = LeftAlignedCollectionViewFlowLayout()
 //        layout.scrollDirection = .horizontal
@@ -129,14 +127,27 @@ class MainView: UIView {
     
     // MARK: - Methods
     
+    func addNewItems() {
+        addSubviewNewItems()
+        makeConstraintsNewItems()
+    }
+    
+    func removeSubviewNewItems() {
+        secondDescriptionLabel.removeFromSuperview()
+        secondDirectionsCollectionView.removeFromSuperview()
+    }
+    
     private func addSubview() {
         addSubview(titelLabel)
         addSubview(firstDescriptionLabel)
         addSubview(firstDirectionsCollectionView)
-        addSubview(secondDescriptionLabel)
-        addSubview(secondDirectionsCollectionView)
         addSubview(questionLabel)
         addSubview(buttonRequest)
+    }
+    
+    private func addSubviewNewItems() {
+        addSubview(secondDescriptionLabel)
+        addSubview(secondDirectionsCollectionView)
     }
     
     func makeConstraints() {
@@ -152,6 +163,16 @@ class MainView: UIView {
         firstDirectionsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         firstDirectionsCollectionView.heightAnchor.constraint(equalToConstant: heightFirstDirectionsCollection).isActive = true
         
+        questionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding).isActive = true
+        questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
+        
+        buttonRequest.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding + 20).isActive = true
+        buttonRequest.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
+        buttonRequest.heightAnchor.constraint(equalToConstant: heightButton).isActive = true
+        buttonRequest.widthAnchor.constraint(equalToConstant: widhtButton).isActive = true
+    }
+    
+    func makeConstraintsNewItems() {
         secondDescriptionLabel.topAnchor.constraint(equalTo: firstDirectionsCollectionView.bottomAnchor, constant: lineSpacing).isActive = true
         secondDescriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
         secondDescriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
@@ -160,14 +181,6 @@ class MainView: UIView {
         secondDirectionsCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
         secondDirectionsCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         secondDirectionsCollectionView.heightAnchor.constraint(equalToConstant: heightSecondDirectionsCollection).isActive = true
-        
-        questionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding).isActive = true
-        questionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontaPadding).isActive = true
-        
-        buttonRequest.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomPadding + 20).isActive = true
-        buttonRequest.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontaPadding).isActive = true
-        buttonRequest.heightAnchor.constraint(equalToConstant: heightButton).isActive = true
-        buttonRequest.widthAnchor.constraint(equalToConstant: widhtButton).isActive = true
     }
     
     //MARK: - Action

@@ -10,7 +10,7 @@ import UIKit
 class BackgroundViewController: UIViewController {
     
     // MARK: - Properties
-    
+
     private let cornerRadiusSheet: CGFloat = 30
     private lazy var customView = view as? BackgroundView
     
@@ -25,7 +25,7 @@ class BackgroundViewController: UIViewController {
         configureSheet()
     }
     
-    // MARK: - Private methods
+    // MARK: - Methods
     
     private func configureSheet() {
         let mainViewController = MainViewController()
@@ -45,14 +45,7 @@ class BackgroundViewController: UIViewController {
                 }),
                 .large()
             ]
-            sheet.delegate = self
+            sheet.delegate = mainViewController
         }
-    }
-}
-
-extension BackgroundViewController: UISheetPresentationControllerDelegate {
-    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
-        let position = sheetPresentationController.selectedDetentIdentifier!
-        print(position)
     }
 }

@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     
     private let horizontalPaddingInCell: CGFloat = 24
     private let verticalPaddingInCell: CGFloat = 12
-    private let directionModel = DirectionModel.shared
+    private let directionModel: DirectionModel = DirectionModel()
     private lazy var customView = view as? MainView
     
     // MARK: - Lifecycle
@@ -76,9 +76,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        directionModel.redefineDirections(index: indexPath.row)
+        directionModel.checkDirections(index: indexPath.row)
         customView?.firstDirectionsCollectionView.reloadData()
         customView?.secondDirectionsCollectionView.reloadData()
+        customView?.firstDirectionsCollectionView.moveItem(at: indexPath, to: IndexPath(row: 0, section: 0))
+        customView?.secondDirectionsCollectionView.moveItem(at: indexPath, to: IndexPath(row: 0, section: 0))
     }
 }
 
@@ -92,5 +94,14 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         let width = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
         let labelSize = text.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin], attributes: [.font: font], context: nil)
         return CGSize(width: labelSize.width + horizontalPaddingInCell * 2, height: labelSize.height + verticalPaddingInCell * 2)
+    }
+}
+
+// MARK: - Protocols: UISheetPresentationControllerDelegate
+
+extension MainViewController: UISheetPresentationControllerDelegate {
+    
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        customView?.addNewItems()
     }
 }
