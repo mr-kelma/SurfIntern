@@ -7,12 +7,10 @@
 
 import UIKit
 
-
-
 class BackgroundViewController: UIViewController {
     
     // MARK: - Properties
-
+    
     private let cornerRadiusSheet: CGFloat = 30
     
     private lazy var customView = view as? BackgroundView

@@ -5,8 +5,6 @@
 //  Created by Valery Keplin on 8.02.23.
 //
 
-import Foundation
-
 enum Condition {
     case notSelected
     case selected
