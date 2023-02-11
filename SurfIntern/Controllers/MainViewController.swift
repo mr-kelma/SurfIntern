@@ -36,11 +36,29 @@ class MainViewController: UIViewController {
         subscribeCustomViewAction()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        hideСlippedСells()
+    }
+    
     // MARK: - Methods
     
     private func prepareCustomLayoutDelegate() {
         if let layout = customView?.secondDirectionsCollectionView.collectionViewLayout as? LeftAlignedCollectionViewFlowLayout {
             layout.delegate = self
+        }
+    }
+    
+    private func hideСlippedСells() {
+        guard let collectionView = customView?.secondDirectionsCollectionView else { return }
+        let visibleCells = collectionView.visibleCells
+
+        for cell in visibleCells {
+            let cellFrame = cell.frame
+            
+            if cellFrame.maxX > collectionView.frame.width {
+                cell.isHidden = true
+            }
         }
     }
     
@@ -140,5 +158,26 @@ extension MainViewController: LeftAlignedCollectionViewFlowLayoutDelegate {
         let content = directionModel.directionsForSecondCollection[indexPath.row].direction
         let width = content.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)]).width + horizontalPaddingInCell * 2
         return width
+    }
+}
+
+// MARK: - Protocols: UIScrollViewDelegate
+
+extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let scrollView = customView?.secondDirectionsCollectionView else { return }
+        guard let collectionView = customView?.secondDirectionsCollectionView else { return }
+        let visibleCells = collectionView.visibleCells
+        let contentOffset = scrollView.contentOffset.x
+        
+        for cell in visibleCells {
+            let cellFrame = collectionView.convert(cell.frame, to: scrollView.superview)
+            
+            if cellFrame.maxX > contentOffset + collectionView.frame.width {
+                cell.isHidden = true
+            } else {
+                cell.isHidden = false
+            }
+        }
     }
 }
