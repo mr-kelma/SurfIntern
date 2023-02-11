@@ -47,7 +47,6 @@ class MainView: UIView {
     
     private var firstFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 12
         layout.scrollDirection = .horizontal
         return layout
     }()
