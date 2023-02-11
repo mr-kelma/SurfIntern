@@ -62,21 +62,32 @@ class MainViewController: UIViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return directionModel.directions.count
+        if collectionView == customView?.firstDirectionsCollectionView {
+            return directionModel.directionsForFirstCollection.count
+        } else {
+            return directionModel.directionsForSecondCollection.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCellWith(direction: directionModel.directions[indexPath.row])
+        if collectionView == customView?.firstDirectionsCollectionView {
+            cell.configureCellWith(direction: directionModel.directionsForFirstCollection[indexPath.row])
+        } else {
+            cell.configureCellWith(direction: directionModel.directionsForSecondCollection[indexPath.row])
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        directionModel.checkDirections(index: indexPath.row)
-        customView?.firstDirectionsCollectionView.reloadData()
-        customView?.secondDirectionsCollectionView.reloadData()
-        customView?.firstDirectionsCollectionView.moveItem(at: indexPath, to: IndexPath(row: 0, section: 0))
-        customView?.secondDirectionsCollectionView.moveItem(at: indexPath, to: IndexPath(row: 0, section: 0))
+        if collectionView == customView?.firstDirectionsCollectionView {
+            directionModel.checkDirectionsForFirstCollection(index: indexPath.row)
+            customView?.firstDirectionsCollectionView.reloadData()
+            customView?.firstDirectionsCollectionView.moveItem(at: indexPath, to: IndexPath(row: 0, section: 0))
+        } else {
+            directionModel.checkDirectionsForSecondCollection(index: indexPath.row)
+            customView?.secondDirectionsCollectionView.reloadData()
+        }
     }
 }
 
@@ -85,7 +96,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let  text = directionModel.directions[indexPath.row].direction
+        let text = directionModel.directionsForFirstCollection[indexPath.row].direction
         let font = UIFont.systemFont(ofSize: 14, weight: .regular)
         let width = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
         let labelSize = text.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin], attributes: [.font: font], context: nil)
@@ -122,11 +133,11 @@ extension MainViewController: UISheetPresentationControllerDelegate {
     }
 }
 
-// MARK: - Protocols: UISheetPresentationControllerDelegate
+// MARK: - Protocols: LeftAlignedCollectionViewFlowLayoutDelegate
 
 extension MainViewController: LeftAlignedCollectionViewFlowLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, widthForDirectionAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let content = directionModel.directions[indexPath.row].direction
+        let content = directionModel.directionsForSecondCollection[indexPath.row].direction
         let width = content.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)]).width + horizontalPaddingInCell * 2
         return width
     }

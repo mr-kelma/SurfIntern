@@ -18,7 +18,7 @@ class MainView: UIView {
     private let topPadding: CGFloat = 24
     private let bottomPadding: CGFloat = 78
     private let heightFirstDirectionsCollection: CGFloat = 44
-    private let heightSecondDirectionsCollection: CGFloat = 100
+    private let heightSecondDirectionsCollection: CGFloat = 102
     private let heightButton: CGFloat = 60
     private let widhtButton: CGFloat = 219
     
