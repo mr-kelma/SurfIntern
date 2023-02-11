@@ -11,6 +11,7 @@ class MainViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let infiniteScrollingMultiplier: Int = 100
     private let horizontalPaddingInCell: CGFloat = 24
     private let verticalPaddingInCell: CGFloat = 12
     private let directionModel: DirectionModel = DirectionModel()
@@ -36,12 +37,22 @@ class MainViewController: UIViewController {
         subscribeCustomViewAction()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        prepareInfiniteScrolling()
+    }
+    
     // MARK: - Methods
     
     private func prepareCustomLayoutDelegate() {
         if let layout = customView?.secondDirectionsCollectionView.collectionViewLayout as? LeftAlignedCollectionViewFlowLayout {
             layout.delegate = self
         }
+    }
+    
+    private func prepareInfiniteScrolling() {
+        let indexPath = IndexPath(row: directionModel.directionsForFirstCollection.count * infiniteScrollingMultiplier / 2, section: 0)
+        customView?.firstDirectionsCollectionView.scrollToItem(at: indexPath, at: .left, animated: false)
     }
     
     private func subscribeCustomViewAction() {
@@ -63,7 +74,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == customView?.firstDirectionsCollectionView {
-            return directionModel.directionsForFirstCollection.count
+            return directionModel.directionsForFirstCollection.count * infiniteScrollingMultiplier
         } else {
             return directionModel.directionsForSecondCollection.count
         }
@@ -72,7 +83,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.identifier, for: indexPath) as? CustomCollectionViewCell else { return UICollectionViewCell() }
         if collectionView == customView?.firstDirectionsCollectionView {
-            cell.configureCellWith(direction: directionModel.directionsForFirstCollection[indexPath.row])
+            cell.configureCellWith(direction: directionModel.directionsForFirstCollection[indexPath.row % directionModel.directionsForFirstCollection.count])
         } else {
             cell.configureCellWith(direction: directionModel.directionsForSecondCollection[indexPath.row])
         }
@@ -81,9 +92,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == customView?.firstDirectionsCollectionView {
-            directionModel.checkDirectionsForFirstCollection(index: indexPath.row)
+            directionModel.checkDirectionsForFirstCollection(index: indexPath.row % directionModel.directionsForFirstCollection.count)
             customView?.firstDirectionsCollectionView.reloadData()
-            customView?.firstDirectionsCollectionView.moveItem(at: indexPath, to: IndexPath(row: 0, section: 0))
         } else {
             directionModel.checkDirectionsForSecondCollection(index: indexPath.row)
             customView?.secondDirectionsCollectionView.reloadData()
@@ -96,7 +106,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let text = directionModel.directionsForFirstCollection[indexPath.row].direction
+        let text = directionModel.directionsForFirstCollection[indexPath.row % directionModel.directionsForFirstCollection.count].direction
         let font = UIFont.systemFont(ofSize: 14, weight: .regular)
         let width = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
         let labelSize = text.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin], attributes: [.font: font], context: nil)
