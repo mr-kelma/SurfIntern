@@ -11,7 +11,7 @@ enum Condition {
 }
 
 struct Direction {
-    let direction: String
+    let label: String
     var condition: Condition
 }
 
@@ -20,29 +20,29 @@ final class DirectionModel {
     // MARK: - Properties
     
     var directionsForFirstCollection: [Direction] = [
-        Direction(direction: "IOS", condition: Condition.notSelected),
-        Direction(direction: "Android", condition: Condition.notSelected),
-        Direction(direction: "Design", condition: Condition.notSelected),
-        Direction(direction: "Flutter", condition: Condition.notSelected),
-        Direction(direction: "QA", condition: Condition.notSelected),
-        Direction(direction: "PM", condition: Condition.notSelected),
-        Direction(direction: "I would", condition: Condition.notSelected),
-        Direction(direction: "like", condition: Condition.notSelected),
-        Direction(direction: "to intern", condition: Condition.notSelected),
-        Direction(direction: "with you", condition: Condition.notSelected),
+        Direction(label: "IOS", condition: Condition.notSelected),
+        Direction(label: "Android", condition: Condition.notSelected),
+        Direction(label: "Design", condition: Condition.notSelected),
+        Direction(label: "Flutter", condition: Condition.notSelected),
+        Direction(label: "QA", condition: Condition.notSelected),
+        Direction(label: "PM", condition: Condition.notSelected),
+        Direction(label: "I would", condition: Condition.notSelected),
+        Direction(label: "like", condition: Condition.notSelected),
+        Direction(label: "to intern", condition: Condition.notSelected),
+        Direction(label: "with you", condition: Condition.notSelected),
     ]
     
     var directionsForSecondCollection: [Direction] = [
-        Direction(direction: "IOS", condition: Condition.notSelected),
-        Direction(direction: "Android", condition: Condition.notSelected),
-        Direction(direction: "Design", condition: Condition.notSelected),
-        Direction(direction: "Flutter", condition: Condition.notSelected),
-        Direction(direction: "QA", condition: Condition.notSelected),
-        Direction(direction: "PM", condition: Condition.notSelected),
-        Direction(direction: "I would", condition: Condition.notSelected),
-        Direction(direction: "like", condition: Condition.notSelected),
-        Direction(direction: "to intern", condition: Condition.notSelected),
-        Direction(direction: "with you", condition: Condition.notSelected),
+        Direction(label: "IOS", condition: Condition.notSelected),
+        Direction(label: "Android", condition: Condition.notSelected),
+        Direction(label: "Design", condition: Condition.notSelected),
+        Direction(label: "Flutter", condition: Condition.notSelected),
+        Direction(label: "QA", condition: Condition.notSelected),
+        Direction(label: "PM", condition: Condition.notSelected),
+        Direction(label: "I would", condition: Condition.notSelected),
+        Direction(label: "like", condition: Condition.notSelected),
+        Direction(label: "to intern", condition: Condition.notSelected),
+        Direction(label: "with you", condition: Condition.notSelected),
     ]
     
     // MARK: - Methods
