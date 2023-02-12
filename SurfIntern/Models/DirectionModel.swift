@@ -11,8 +11,8 @@ enum Condition {
 }
 
 struct Direction {
-    let direction: String
-    var label: Condition
+    let label: String
+    var condition: Condition
 }
 
 final class DirectionModel {
@@ -20,29 +20,29 @@ final class DirectionModel {
     // MARK: - Properties
     
     var directionsForFirstCollection: [Direction] = [
-        Direction(direction: "IOS", label: Condition.notSelected),
-        Direction(direction: "Android", label: Condition.notSelected),
-        Direction(direction: "Design", label: Condition.notSelected),
-        Direction(direction: "Flutter", label: Condition.notSelected),
-        Direction(direction: "QA", label: Condition.notSelected),
-        Direction(direction: "PM", label: Condition.notSelected),
-        Direction(direction: "I would", label: Condition.notSelected),
-        Direction(direction: "like", label: Condition.notSelected),
-        Direction(direction: "to intern", label: Condition.notSelected),
-        Direction(direction: "with you", label: Condition.notSelected),
+        Direction(label: "IOS", condition: Condition.notSelected),
+        Direction(label: "Android", condition: Condition.notSelected),
+        Direction(label: "Design", condition: Condition.notSelected),
+        Direction(label: "Flutter", condition: Condition.notSelected),
+        Direction(label: "QA", condition: Condition.notSelected),
+        Direction(label: "PM", condition: Condition.notSelected),
+        Direction(label: "I would", condition: Condition.notSelected),
+        Direction(label: "like", condition: Condition.notSelected),
+        Direction(label: "to intern", condition: Condition.notSelected),
+        Direction(label: "with you", condition: Condition.notSelected),
     ]
     
     var directionsForSecondCollection: [Direction] = [
-        Direction(direction: "IOS", label: Condition.notSelected),
-        Direction(direction: "Android", label: Condition.notSelected),
-        Direction(direction: "Design", label: Condition.notSelected),
-        Direction(direction: "Flutter", label: Condition.notSelected),
-        Direction(direction: "QA", label: Condition.notSelected),
-        Direction(direction: "PM", label: Condition.notSelected),
-        Direction(direction: "I would", label: Condition.notSelected),
-        Direction(direction: "like", label: Condition.notSelected),
-        Direction(direction: "to intern", label: Condition.notSelected),
-        Direction(direction: "with you", label: Condition.notSelected),
+        Direction(label: "IOS", condition: Condition.notSelected),
+        Direction(label: "Android", condition: Condition.notSelected),
+        Direction(label: "Design", condition: Condition.notSelected),
+        Direction(label: "Flutter", condition: Condition.notSelected),
+        Direction(label: "QA", condition: Condition.notSelected),
+        Direction(label: "PM", condition: Condition.notSelected),
+        Direction(label: "I would", condition: Condition.notSelected),
+        Direction(label: "like", condition: Condition.notSelected),
+        Direction(label: "to intern", condition: Condition.notSelected),
+        Direction(label: "with you", condition: Condition.notSelected),
     ]
     
     // MARK: - Methods
@@ -50,9 +50,9 @@ final class DirectionModel {
     func checkDirectionsForFirstCollection(index: Int) {
         let index = index
         
-        switch directionsForFirstCollection[index].label {
+        switch directionsForFirstCollection[index].condition {
         case .selected:
-            directionsForFirstCollection[index].label = .notSelected
+            directionsForFirstCollection[index].condition = .notSelected
         default:
             redefineDirectionsForFirstCollection(index: index)
         }
@@ -61,31 +61,31 @@ final class DirectionModel {
     func checkDirectionsForSecondCollection(index: Int) {
         let index = index
         
-        switch directionsForSecondCollection[index].label {
+        switch directionsForSecondCollection[index].condition {
         case .selected:
-            directionsForSecondCollection[index].label = .notSelected
+            directionsForSecondCollection[index].condition = .notSelected
         default:
-            directionsForSecondCollection[index].label = .selected
+            directionsForSecondCollection[index].condition = .selected
             redefineDirectionsForSecondCollection(index: index)
         }
     }
     
     private func redefineDirectionsForFirstCollection(index: Int) {
         if index >= 0 {
-            directionsForFirstCollection[index].label = .selected
+            directionsForFirstCollection[index].condition = .selected
             let direction = directionsForFirstCollection.remove(at: index)
             directionsForFirstCollection.insert(direction, at: 0)
         }
         
         for i in 1..<directionsForFirstCollection.count {
-            self.directionsForFirstCollection[i].label = Condition.notSelected
+            self.directionsForFirstCollection[i].condition = Condition.notSelected
         }
     }
     
     private func redefineDirectionsForSecondCollection(index: Int) {
         for i in 0..<directionsForSecondCollection.count {
             if i != index {
-                self.directionsForSecondCollection[i].label = Condition.notSelected
+                self.directionsForSecondCollection[i].condition = Condition.notSelected
             }
         }
     }

@@ -46,9 +46,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     // MARK: - Methods
     
     func configureCellWith(direction: Direction) {
-        directionLabel.text = direction.direction
+        directionLabel.text = direction.label
         
-        if direction.label == Condition.notSelected {
+        if direction.condition == Condition.notSelected {
             directionLabel.textColor = UIColor.AppColors.dark
             contentView.backgroundColor = UIColor.AppColors.lightGrey
         } else {
