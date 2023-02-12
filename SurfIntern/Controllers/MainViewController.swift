@@ -96,7 +96,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let text = directionModel.directionsForFirstCollection[indexPath.row].direction
+        let text = directionModel.directionsForFirstCollection[indexPath.row].label
         let font = UIFont.systemFont(ofSize: 14, weight: .regular)
         let width = collectionView.bounds.width - collectionView.contentInset.left - collectionView.contentInset.right
         let labelSize = text.boundingRect(with: CGSize(width: width, height: .greatestFiniteMagnitude), options: [.usesLineFragmentOrigin], attributes: [.font: font], context: nil)
@@ -137,7 +137,7 @@ extension MainViewController: UISheetPresentationControllerDelegate {
 
 extension MainViewController: LeftAlignedCollectionViewFlowLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, widthForDirectionAtIndexPath indexPath: IndexPath) -> CGFloat {
-        let content = directionModel.directionsForSecondCollection[indexPath.row].direction
+        let content = directionModel.directionsForSecondCollection[indexPath.row].label
         let width = content.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .regular)]).width + horizontalPaddingInCell * 2
         return width
     }
